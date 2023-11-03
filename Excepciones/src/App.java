@@ -64,9 +64,16 @@ public class App  extends JFrame implements ItemListener{
     }
 
 
+   
     @Override
     public void itemStateChanged(ItemEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'itemStateChanged'");
+        System.out.println(e.getStateChange());
+        Platos precios;
+        if(e.getStateChange()==1){
+            
+            if(e.getSource()==combo){
+               String name_fish[] = { "Hamburgesa","Limonada","Postre"  };
+               for (int j = 0; j<3; j++) {
+
     }
 }
