@@ -75,5 +75,20 @@ public class App  extends JFrame implements ItemListener{
                String name_fish[] = { "Hamburgesa","Limonada","Postre"  };
                for (int j = 0; j<3; j++) {
 
+                         if(combo.getSelectedItem() == name_fish[j]){
+                    Platos name;
+                    for(int i = 0; i<1; i++){
+                        name = lista4.get(j);
+                        JOptionPane.showMessageDialog(contenedor, name.getNombre() + " \n" + name.getDescripcion() +
+                                                     "\nTipo: " + name.getTipo() + "\nValor: " + name.getCosto() + "\nTiempo preparacion: " 
+                                                    +  name.getTiempo_preparacion(), "--Informacion MENU---",1);                     
+                   }  
+                 }
+                }
+                System.out.println("boton 1 es "+button1.isSelected());
+                }               
+            }
+    }
+
     }
 }
