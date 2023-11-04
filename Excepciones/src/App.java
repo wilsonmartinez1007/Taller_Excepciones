@@ -102,8 +102,7 @@ public class App  extends JFrame implements ItemListener, ActionListener{
             if(e.getSource()==this.combo){
                String name_fish[] = { "Hamburgesa","Limonada","Postre"  };
                for (int j = 0; j<3; j++) {
-
-                         if(this.combo.getSelectedItem() == name_fish[j]){
+                 if(this.combo.getSelectedItem() == name_fish[j]){
                     Platos name;
                     for(int i = 0; i<1; i++){
                         name = lista4.get(j);
@@ -121,9 +120,25 @@ public class App  extends JFrame implements ItemListener, ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if(e.getSource() == button1){
+            int valor1, valor2, valor3 = 0;
+            try{
+                System.out.println("Bloque try ejecutado.");
+                
+                if (campo1.getText().isEmpty()){
+                    throw new Excepciones("No se han pedidio hamburgesas.");
+                }
+                valor1 = Integer.parseInt(campo1.getText());
+                Platos precios;
+                precios = lista4.get(0);
+                listaCarritoCompras[0] = valor1;
+                listaCarritoCompras2[0] = valor1 * precios.costo;
+            }catch(Excepciones ex){
+                String mensaje = ex.getMessage();
+                System.out.println("Excepción: " + mensaje);
+                   
+                }
+                
+         }
     }
-
-    
 }
