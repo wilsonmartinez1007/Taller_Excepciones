@@ -26,6 +26,9 @@ public class App  extends JFrame implements ItemListener, ActionListener{
     static List<Platos> lista4 = new ArrayList<>();
     JTextField campo1, campo2, campo3;
     JButton button1, button2;
+    int listaCarritoCompras[] = {0,0,0};
+    int listaCarritoCompras2[] = {0,0,0};
+    
 
     App(){
         this.contenedor = this.getContentPane();
