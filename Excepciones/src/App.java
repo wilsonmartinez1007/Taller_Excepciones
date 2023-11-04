@@ -81,9 +81,9 @@ public class App  extends JFrame implements ItemListener, ActionListener{
 
 
     public static void main(String[] args) throws Exception {
-        Platos plato1 = new Platos("Hamburgesa", "no se la verdad", Tipo_plato.Entrada, 8000, (byte)30);
-        Platos plato2 = new Platos("Limonada", "Jugo fresco con sabor a limonada", Tipo_plato.Bebida, 1500, (byte)10);
-        Platos plato3 = new Platos("Postre", "tampoco se la verdad", Tipo_plato.Plato_fuerte, 8000, (byte)30);
+        Platos plato1 = new Platos("Hamburgesa", "Jugosa Hamburgesa de caren de res a la parrilla con queso, lechuga fresa y tomate", Tipo_plato.Plato_fuerte, 20000, (byte)30);
+        Platos plato2 = new Platos("Limonada", "Jugo fresco con sabor a limonada", Tipo_plato.Bebida, 3000, (byte)10);
+        Platos plato3 = new Platos("Ensalada Griega", "Refrescante ensalada compuesta por pepino, tomate,cebolla roja y aceitunas", Tipo_plato.Entrada, 8000, (byte)30);
         lista4.add(0, plato1);
         lista4.add( 1, plato2);
         lista4.add(2, plato3);
@@ -96,11 +96,11 @@ public class App  extends JFrame implements ItemListener, ActionListener{
     @Override
     public void itemStateChanged(ItemEvent e) {
         System.out.println(e.getStateChange());
-        Platos precios;
+
         if(e.getStateChange()==1){
             
             if(e.getSource()==this.combo){
-               String name_fish[] = { "Hamburgesa","Limonada","Postre"  };
+               String name_fish[] = { "Hamburgesa","Limonada","Ensalada Griega"  };
                for (int j = 0; j<3; j++) {
                  if(this.combo.getSelectedItem() == name_fish[j]){
                     Platos name;
@@ -112,7 +112,6 @@ public class App  extends JFrame implements ItemListener, ActionListener{
                    }  
                  }
                 }
-                System.out.println("boton 1 es "+this.button1.isSelected());
                 }               
             }
     }
@@ -121,6 +120,7 @@ public class App  extends JFrame implements ItemListener, ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button1){
+            Platos precios;
             int valor1, valor2, valor3 = 0;
             try{
                 System.out.println("Bloque try ejecutado.");
@@ -129,7 +129,6 @@ public class App  extends JFrame implements ItemListener, ActionListener{
                     throw new Excepciones("No se han pedidio hamburgesas.");
                 }
                 valor1 = Integer.parseInt(campo1.getText());
-                Platos precios;
                 precios = lista4.get(0);
                 listaCarritoCompras[0] = valor1;
                 listaCarritoCompras2[0] = valor1 * precios.costo;
@@ -137,8 +136,71 @@ public class App  extends JFrame implements ItemListener, ActionListener{
                 String mensaje = ex.getMessage();
                 System.out.println("Excepción: " + mensaje);
                    
+                }try{
+                if(campo2.getText().isEmpty()){
+                throw new Excepciones("No se han pedido limonadas.");
+                        }
+                valor2 = Integer.parseInt(campo2.getText());
+                precios = lista4.get(1);
+                listaCarritoCompras[1] = valor2;
+                listaCarritoCompras2[1] = valor2 * precios.costo;     
+                }catch(Excepciones ex){
+                    String mensaje = ex.getMessage();
+                    JOptionPane.showMessageDialog(contenedor, ("Excepción: " + mensaje), "ERROR", 1);return;
                 }
+            try{
+                if (campo3.getText().isEmpty()){
+                    throw new Excepciones("No se han pedidio postre.");
+                }   
+                valor3 = Integer.parseInt(campo3.getText());
+                precios = lista4.get(2);
+                listaCarritoCompras[2] = valor3;
+                listaCarritoCompras2[2] = valor3 * precios.costo;
+                }catch(Excepciones ex){
                 
-         }
+                String mensaje = ex.getMessage();
+                System.out.println("Excepción: " + mensaje);
+                                }
+        }if(e.getSource() == button2){
+            try{
+            if(listaCarritoCompras[1] == 0){
+                throw new Excepciones("que enfermo come sin bebida xD.");}
+            }catch(Excepciones ex){
+            String mensaje = ex.getMessage();
+            JOptionPane.showMessageDialog(contenedor, ("Excepción: " + mensaje), "ERROR", 1);return;}
+            int suma = 0;
+            for (int suma2 : listaCarritoCompras2) {suma += suma2;}
+            try{
+            if(suma > 200000){
+                throw new Excepciones("No es normal gastar tanto en un almuerzo, quizá se equivocó.");}
+            }catch(Excepciones ex){
+            String mensaje = ex.getMessage();
+            JOptionPane.showMessageDialog(contenedor, ("Excepción: " + mensaje), "ERROR", 1);return;}
+            try{
+                for (int cantidad : listaCarritoCompras) {
+                    
+                    if(cantidad > 5){
+                        throw new Excepciones("Solo es permitido menos de 5 unidades de un mismo plato");
+                    }       
+                }System.out.println("bien");
+            }catch(Excepciones ex){
+                String mensaje = ex.getMessage();
+                JOptionPane.showMessageDialog(contenedor, ("Excepción: " + mensaje), "ERROR", 1);return;}
+            
+            for (int i = 0; i < listaCarritoCompras.length; i++) {
+                Platos pedidos;
+                pedidos = lista4.get(i);
+                if(listaCarritoCompras[i] != 0){
+                    String nombre = "Nombre: "+ pedidos.nombre;
+                    String descripcion = "Descripcion pedido: "+ pedidos.descripcion;
+                    Tipo_plato tipo = pedidos.tipo;
+                    int costo = listaCarritoCompras2[i];
+                    byte tiempo = pedidos.tiempo_preparacion;
+                    JOptionPane.showMessageDialog(contenedor, nombre+ "\n" + descripcion + "\nTipo: "+ tipo + "\ncosto: "+costo +
+                                                "\nTiempo- preparacion: " + tiempo + " minutos", "--FACTURA--",1);
+                }
+            }
+            
+        }
     }
 }
