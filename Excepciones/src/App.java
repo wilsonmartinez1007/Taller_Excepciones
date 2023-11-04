@@ -31,54 +31,70 @@ public class App  extends JFrame implements ItemListener, ActionListener{
     
 
     App(){
-        this.contenedor = this.getContentPane();
-        this.layout = new GridLayout(3,0);
-        this.contenedor.setLayout(this.layout);
-        
-        this.layout2 = new FlowLayout();
-        JPanel panel1 = new JPanel(this.layout2);
+        contenedor = getContentPane();
+        layout = new GridLayout(3,0);
+        contenedor.setLayout(layout);
 
-        JLabel etiqueta = new JLabel("                                    --Bienvenido al Restaurante a continuacion nuestro MENU--"                                                                          );
+        layout2 = new FlowLayout();
+        JPanel panel1 = new JPanel(layout2);
+
+        JLabel etiqueta = new JLabel("                              --Bienvenido al Restaurante a continuacion nuestro MENU--                                                                     -                 ");
         panel1.add(etiqueta);
 
         Platos name;
-
+        
         for(int i = 0; i<lista4.size(); i++){
             name = lista4.get(i);
-            this.nombre_platos[i] = name.nombre;
+            nombre_platos[i] = name.nombre;
         }
-        this.combo = new JComboBox<String>(this.nombre_platos);
-        this.combo.addItemListener(this);
-        this.contenedor.add(panel1);
-
-        this.layout2 = new FlowLayout();
-        JPanel panel2 = new JPanel(this.layout);
-
-        JLabel etiqueta3 = new JLabel("--                                      Puede dijitar la cantidad de platos que desea:                                                                  ---");
-        panel2.add(etiqueta3);
-
-        JLabel etiqueta2 = new JLabel(this.nombre_platos[0]+": ");
-        panel2.add(etiqueta2);
-        this.campo1 = new JTextField(10);
-        panel2.add(this.campo1);
-        JLabel etiqueta4 = new JLabel(this.nombre_platos[1]+": ");
-        panel2.add(etiqueta4);
-        this.campo2 = new JTextField(10);
-        panel2.add(this.campo2);
-        JLabel etiqueta5 = new JLabel(this.nombre_platos[2]+": ");
-        panel2.add(etiqueta5);
-        this.campo3 = new JTextField(10);
-        panel2.add(this.campo3);
-
-        this.button1 = new JButton("Presiona para enviar el pedido");
-        this.button1.addActionListener(this);
-        panel2.add(this.campo3);
+        combo = new JComboBox<String>(nombre_platos);
+        combo.addItemListener(this);
+        panel1.add(combo);
+        contenedor.add(panel1);
         
-        this.contenedor.add(panel2);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600, 600);
-        this.setVisible(true);
+
+        layout2 = new FlowLayout();
+        JPanel panel2 = new JPanel(layout2);
+
+       
+        JLabel etiqueta3 = new JLabel("--                                     Puede dijitar la cantidad de platos que desea:   ----                                                                               -");
+        panel2.add(etiqueta3);
+        
+        JLabel etiqueta2 = new JLabel(nombre_platos[0]+": ");
+        panel2.add(etiqueta2);
+        campo1 = new JTextField(10);
+        panel2.add(campo1);
+        JLabel etiqueta4 = new JLabel(nombre_platos[1]+": ");
+        panel2.add(etiqueta4);
+        campo2 = new JTextField(10);
+        panel2.add(campo2);
+        JLabel etiqueta5 = new JLabel(nombre_platos[2]+": ");
+        panel2.add(etiqueta5);
+        campo3 = new JTextField(10);
+        panel2.add(campo3);
+
+        button1 = new JButton("Presiona para enviar pedido.");
+        button1.addActionListener(this);
+        panel2.add(button1);
+        
+        contenedor.add(panel2);
+
+        layout3 = new FlowLayout();
+        JPanel panel3 = new JPanel(layout2);
+
+        button2 = new JButton("Presiona para mostrar factura.");
+        button2.addActionListener(this);
+        panel3.add(button2);
+
+        contenedor.add(panel3);
+
+        
+                 
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 600);
+        setVisible(true);
 
     }
 
@@ -98,23 +114,24 @@ public class App  extends JFrame implements ItemListener, ActionListener{
    
     @Override
     public void itemStateChanged(ItemEvent e) {
-        System.out.println(e.getStateChange());
-
-        if(e.getStateChange()==1){
+         if(e.getStateChange()==1){
             
-            if(e.getSource()==this.combo){
+            if(e.getSource()==combo){
                String name_fish[] = { "Hamburgesa","Limonada","Ensalada Griega"  };
-               for (int j = 0; j<3; j++) {
-                 if(this.combo.getSelectedItem() == name_fish[j]){
+               for (int j = 0; j<name_fish.length; j++) {
+
+                
+            
+                if(combo.getSelectedItem() == name_fish[j]){
                     Platos name;
                     for(int i = 0; i<1; i++){
                         name = lista4.get(j);
-                        JOptionPane.showMessageDialog(this.contenedor, name.getNombre() + " \n" + name.getDescripcion() +
+                        JOptionPane.showMessageDialog(contenedor, name.getNombre() + " \n" + name.getDescripcion() +
                                                      "\nTipo: " + name.getTipo() + "\nValor: " + name.getCosto() + "\nTiempo preparacion: " 
                                                     +  name.getTiempo_preparacion(), "--Informacion MENU---",1);                     
-                   }  
-                 }
-                }
+                                }  
+                        }
+                    }
                 }               
             }
     }
